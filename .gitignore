@@ -3,4 +3,11 @@ training_VP3D_logs/
 *__pycache__
 VideoPose3D
 TED3D
-DiffGesture
+
+*.log
+*.mp4
+*.bin
+*.txt
+*.wav
+*.pkl
+*.jpg
