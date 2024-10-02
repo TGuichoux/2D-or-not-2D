@@ -5,7 +5,7 @@ Arxiv abstract: https://www.arxiv.org/abs/2409.10357
 
 If you want to use this code, please cite the following works:
 
-'''
+```
 @article{Yoon2020Speech,
   title={Speech Gesture Generation from the Trimodal Context of Text, Audio, and Speaker Identity},
   author={Youngwoo Yoon and Bok Cha and Joo-Haeng Lee and Minsu Jang and Jaeyeon Lee and Jaehong Kim and Geehyuk Lee},
@@ -30,5 +30,5 @@ If you want to use this code, please cite the following works:
   year={2019}
 }
 
-'''
+```
 
