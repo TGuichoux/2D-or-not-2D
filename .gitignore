@@ -2,7 +2,7 @@ output/
 training_VP3D_logs/
 *__pycache__
 VideoPose3D
-TED3D
+
 
 *.log
 *.mp4
