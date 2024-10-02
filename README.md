@@ -1,5 +1,5 @@
 # 2D or not 2D ?
-This is the official repository for our paper: _2D or not 2D: How does the dimensionality of gestures representation affect 3D co-speech gesture generation?_
+This is the official repository for our paper: _2D or not 2D: How does the dimensionality of gestures representation affect 3D co-speech gesture generation?_ Téo Guichoux, Laure Soulier, Nicolas Obin, Catherine Pelachaud.
 
 [Arxiv](https://www.arxiv.org/abs/2409.10357)
 
