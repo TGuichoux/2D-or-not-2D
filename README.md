@@ -3,6 +3,8 @@ This is the official repository for our paper: _2D or not 2D: How does the dimen
 
 [Arxiv](https://www.arxiv.org/abs/2409.10357)
 
+# Access data
+To access the database, please follow the instructions at [Gesture-Generation-from-Trimodal-Context](https://github.com/ai4r/Gesture-Generation-from-Trimodal-Context/tree/master).
 
 # Aknowledgement
 This code is based on the code of [Gesture-Generation-from-Trimodal-Context](https://github.com/ai4r/Gesture-Generation-from-Trimodal-Context/tree/master), [DiffGesture](https://github.com/Advocate99/DiffGesture/tree/main) and [VideoPose3D](https://github.com/facebookresearch/VideoPose3D).
