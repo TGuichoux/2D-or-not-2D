@@ -14,7 +14,7 @@ If you want to use this code, please cite the following works:
   number={6},
 }
 
-@inproceedings{zhu2023taming,
+> @inproceedings{zhu2023taming,
   title={Taming Diffusion Models for Audio-Driven Co-Speech Gesture Generation},
   author={Zhu, Lingting and Liu, Xian and Liu, Xuanyu and Qian, Rui and Liu, Ziwei and Yu, Lequan},
   booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
@@ -22,7 +22,7 @@ If you want to use this code, please cite the following works:
   year={2023}
 }
 
-@inproceedings{pavllo:videopose3d:2019,
+> @inproceedings{pavllo:videopose3d:2019,
   title={3D human pose estimation in video with temporal convolutions and semi-supervised training},
   author={Pavllo, Dario and Feichtenhofer, Christoph and Grangier, David and Auli, Michael},
   booktitle={Conference on Computer Vision and Pattern Recognition (CVPR)},
