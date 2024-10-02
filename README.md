@@ -1,9 +1,13 @@
-# 2D-or-not-2D
+# 2D or not 2D ?
 This is the official repository for our paper: _2D or not 2D: How does the dimensionality of gestures representation affect 3D co-speech gesture generation?_
 
 Arxiv abstract: https://www.arxiv.org/abs/2409.10357
 
-If you want to use this code, please cite the following works:
+
+# Aknowledgement
+This code is based on the code of [Gesture-Generation-from-Trimodal-Context](https://github.com/ai4r/Gesture-Generation-from-Trimodal-Context/tree/master), [DiffGesture](https://github.com/Advocate99/DiffGesture/tree/main) and [VideoPose3D](https://github.com/facebookresearch/VideoPose3D).
+
+If you want to use this code, please cite their work:
 
 ```
 @article{Yoon2020Speech,
