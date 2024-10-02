@@ -1,0 +1,32 @@
+lr: 1.0e-3
+lr_decay: 0.95
+initial_momentum: 0.1
+final_momentum: 0.001
+epochs: 100
+new_layers: [] #['layers_conv.1', 'layers_conv.7']
+frozen_layers: [] #['layers_conv.2', 'layers_conv.3', 'layers_conv.4', 'layers_conv.5']
+dropout: 0.25
+causal: False
+channels: 1024
+dense: False
+filter_widths: [3,3,3,3,3]
+no_eval: False
+batch_size: 1024
+stride: 1
+n_joints: 9
+n_poses: 34
+fps: 91
+clip_duration_in_sec: 3
+pose_resampling_fps: 15
+causal_shift: False
+checkpoint_frequency: 3
+train_subset_size: 200000
+val_subset_size: 3000
+checkpoint: training_VP3D_logs
+name: "vp3D"
+
+vocab_cache_path: '/data/guichoux/TED/ted_dataset/vocab_cache.pkl'
+wordembed_path: "/data/guichoux/TED/fasttext/crawl-300d-2M-subword.bin"
+
+val_lmdb_path: '/data/guichoux/TED/ted_dataset/lmdb_val'
+train_lmdb_path: '/data/guichoux/TED/ted_dataset/lmdb_train'
