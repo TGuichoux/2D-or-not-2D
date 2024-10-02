@@ -1,11 +1,11 @@
 name: 3D_dir_vec_2
 
-train_data_path: /data/guichoux/TED/ted_dataset/lmdb_train
-val_data_path: /data/guichoux/TED/ted_dataset/lmdb_val
-test_data_path: /data/guichoux/TED/ted_dataset/lmdb_test
+train_data_path: /data/ted_dataset/lmdb_train
+val_data_path: /data/ted_dataset/lmdb_val
+test_data_path: /data/ted_dataset/lmdb_test
 
 wordembed_dim: 300
-wordembed_path: /data/guichoux/TED/fasttext/crawl-300d-2M-subword.bin
+wordembed_path: /data/fasttext/crawl-300d-2M-subword.bin
 
 model_save_path: output/train_diffusion_ted/diffusion_3D-checkpoints
 random_seed: -1

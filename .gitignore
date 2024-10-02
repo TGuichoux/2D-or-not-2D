@@ -1,7 +1,7 @@
 output/
 training_VP3D_logs/
 *__pycache__
-
+bash
 
 *.log
 *.mp4

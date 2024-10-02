@@ -1,8 +1,8 @@
 name: 3D-autoencoder
 
-train_data_path: ../data/ted_dataset/lmdb_train
-val_data_path: ../data/ted_dataset/lmdb_val
-test_data_path: ../data/ted_dataset/lmdb_test
+train_data_path: /data/ted_dataset/lmdb_train
+val_data_path: /data/ted_dataset/lmdb_val
+test_data_path: /data/ted_dataset/lmdb_test
 
 tb_logdir: output/ted_gesture_autoencoder/tensorboard_runs
 model_save_path: output/ted_gesture_autoencoder/3D_ted_gesture_autoencoder

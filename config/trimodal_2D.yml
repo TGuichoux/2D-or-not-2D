@@ -1,11 +1,11 @@
 #name: 2D_multimodal_context
 
-train_data_path: /data/guichoux/TED/ted_dataset/lmdb_train
-val_data_path: /data/guichoux/TED/ted_dataset/lmdb_val
-test_data_path: /data/guichoux/TED/ted_dataset/lmdb_test
+train_data_path: /data/ted_dataset/lmdb_train
+val_data_path: /data/ted_dataset/lmdb_val
+test_data_path: /data/ted_dataset/lmdb_test
 
 wordembed_dim: 300
-wordembed_path: /data/guichoux/TED/fasttext/crawl-300d-2M-subword.bin  # from https://fasttext.cc/docs/en/english-vectors.html
+wordembed_path: /data/fasttext/crawl-300d-2M-subword.bin  # from https://fasttext.cc/docs/en/english-vectors.html
 #freeze_wordembed: true
 
 model_save_path: output/train_multimodal_context/2D_multimodal-checkpoint
