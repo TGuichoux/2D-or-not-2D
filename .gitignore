@@ -8,7 +8,7 @@ bash
 
 *.log
 *.mp4
-*.txt
+
 *.wav
 *.pkl
 *.jpg
