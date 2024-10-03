@@ -34,7 +34,7 @@ python DiffGesture_train_TED.py --config=config/diffgesture_2D.yml --name=diffge
 You can train the models with different configurations. Refer to the ```config/ ``` folder.
 The logs and checkpoints will be saved in the ```output ``` directory.
 
-Once VideoPose3D and the baseline models are trained, to est them run:
+Once VideoPose3D and the baseline models are trained, to test them run:
 ```
 python test_TED.py --model pose_diffusion --dimension=2 --mode=eval --postprocessing=lifting --checkpoint_path=path/to/trained/model --vp3D_ckpt=paht/to/trained/VideoPose3D 
 ```
@@ -46,7 +46,7 @@ You can try different testing set-ups:
 
 - ```--dimension=3``` to generate 3D gestures
 
-- ```--context=both``` or --context=text or --context=none to change the speech condition for trimodal.
+- ```--context=both``` or ```--context=text``` or ```--context=none``` to change the speech condition for trimodal.
 
 Make sure to load the appropriate checkpoint. (e.g. ```--checkpoint_path=output/trimodal_3D_audio.bin``` when testing Trimodal 3D with only the audio condition).
 
