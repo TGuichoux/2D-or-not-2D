@@ -1,7 +1,9 @@
 # 2D or not 2D ?
+
+![Alt text](pipeline.png)
 This is the official repository for our paper: _2D or not 2D: How does the dimensionality of gestures representation affect 3D co-speech gesture generation?_ Téo Guichoux, Laure Soulier, Nicolas Obin, Catherine Pelachaud.
 
-[Arxiv](https://www.arxiv.org/abs/2409.10357)
+[Arxiv](https://www.arxiv.org/abs/2409.10357) [Example videos](https://sites.google.com/view/iva-2d-or-not-2d)
 
 # Access data
 To access the database, please follow the instructions at [Gesture-Generation-from-Trimodal-Context](https://github.com/ai4r/Gesture-Generation-from-Trimodal-Context/tree/master).
