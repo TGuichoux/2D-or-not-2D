@@ -1,13 +1,13 @@
 output/ted_gesture_autoencoder/
 output/train_diffusion_ted/
 output/train_multimodal_context/
+VideoPose3D/checkpoint/
 training_VP3D_logs/
 *__pycache__
 bash
 
 *.log
 *.mp4
-*.bin
 *.txt
 *.wav
 *.pkl
