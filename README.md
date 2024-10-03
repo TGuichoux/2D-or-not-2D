@@ -32,7 +32,7 @@ or
 python DiffGesture_train_TED.py --config=config/diffgesture_2D.yml --name=diffgesture_2D
 ```
 
-
+The logs and checkpoints will be saved in the ```output ``` directory.
 # Aknowledgement
 This code is based on the code of [Gesture-Generation-from-Trimodal-Context](https://github.com/ai4r/Gesture-Generation-from-Trimodal-Context/tree/master), [DiffGesture](https://github.com/Advocate99/DiffGesture/tree/main) and [VideoPose3D](https://github.com/facebookresearch/VideoPose3D).
 
