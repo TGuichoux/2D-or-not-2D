@@ -29,7 +29,7 @@ python DiffGesture_train_TED.py --config=config/diffgesture_3D.yml --name=diffge
 ```
 or
 ```
-python DiffGesture_train_TED.py --config=config/diffgesture_2D.yml --name=diffgesture_3D
+python DiffGesture_train_TED.py --config=config/diffgesture_2D.yml --name=diffgesture_2D
 ```
 
 
