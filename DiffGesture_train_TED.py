@@ -153,7 +153,7 @@ def main(config):
     # dataset
     mean_dir_vec = np.array(args.mean_dir_vec_3d).reshape(-1, 3)
     mean_pose = args.mean_pose_3d
-    train_dataset = SpeechMotionDataset(args.train_data_path[0],
+    train_dataset = SpeechMotionDataset(args.root_data_dir[0]+args.train_data_path[0],
                                         n_poses=args.n_poses,
                                         subdivision_stride=args.subdivision_stride,
                                         pose_resampling_fps=args.motion_resampling_framerate,
@@ -166,7 +166,7 @@ def main(config):
                               collate_fn=collate_fn
                               )
 
-    val_dataset = SpeechMotionDataset(args.val_data_path[0],
+    val_dataset = SpeechMotionDataset(args.root_data_dir[0]+args.val_data_path[0],
                                       n_poses=args.n_poses,
                                       subdivision_stride=args.subdivision_stride,
                                       pose_resampling_fps=args.motion_resampling_framerate,
@@ -176,7 +176,7 @@ def main(config):
                                       remove_word_timing=(args.input_context == 'text')
                                       )
 
-    test_dataset = SpeechMotionDataset(args.test_data_path[0],
+    test_dataset = SpeechMotionDataset(args.root_data_dir[0]+args.test_data_path[0],
                                        n_poses=args.n_poses,
                                        subdivision_stride=args.subdivision_stride,
                                        pose_resampling_fps=args.motion_resampling_framerate,
@@ -185,8 +185,8 @@ def main(config):
                                        mean_pose=mean_pose)
 
     # build vocab
-    vocab_cache_path = os.path.join(os.path.split(args.train_data_path[0])[0], 'vocab_cache.pkl')
-    lang_model = build_vocab('words', [train_dataset, val_dataset, test_dataset], vocab_cache_path, args.wordembed_path,
+    vocab_cache_path = os.path.join(args.root_data_dir[0], 'TED/vocab_cache.pkl')
+    lang_model = build_vocab('words', [train_dataset, val_dataset, test_dataset], vocab_cache_path, args.root_data_dir[0]+args.wordembed_path,
                              args.wordembed_dim)
     train_dataset.set_lang_model(lang_model)
     val_dataset.set_lang_model(lang_model)

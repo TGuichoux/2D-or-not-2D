@@ -25,8 +25,9 @@ val_subset_size: 3000
 checkpoint: training_VP3D_logs
 name: "vp3D"
 
-vocab_cache_path: '/data/ted_dataset/vocab_cache.pkl'
-wordembed_path: "/data/fasttext/crawl-300d-2M-subword.bin"
+root_data_dir: /data/guichoux/
+vocab_cache_path: 'TED/ted_dataset/vocab_cache.pkl'
+wordembed_path: "TED/fasttext/crawl-300d-2M-subword.bin"
 
-val_lmdb_path: '/data/ted_dataset/lmdb_val'
-train_lmdb_path: '/data/ted_dataset/lmdb_train'
+val_lmdb_path: 'TED/ted_dataset/lmdb_val'
+train_lmdb_path: 'TED/ted_dataset/lmdb_train'

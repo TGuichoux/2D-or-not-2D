@@ -17,6 +17,7 @@ def parse_args():
     parser = configargparse.ArgParser()
     parser.add('-c', '--config', required=True, is_config_file=True, help='Config file path')
     parser.add("--name", type=str, default="main")
+    parser.add("--root_data_dir", action="append")
     parser.add("--train_data_path", action="append")
     parser.add("--val_data_path", action="append")
     parser.add("--test_data_path", action="append")

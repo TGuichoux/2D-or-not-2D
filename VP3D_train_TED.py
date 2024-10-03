@@ -66,7 +66,7 @@ if __name__=="__main__":
 
 
 
-    train_dataset = SpeechMotionDataset(config.train_lmdb_path,
+    train_dataset = SpeechMotionDataset(config.root_data_dir+config.train_lmdb_path,
                                         n_poses=config.n_poses,
                                         subdivision_stride=10, #10
                                         pose_resampling_fps=config.pose_resampling_fps, #15
@@ -76,7 +76,7 @@ if __name__=="__main__":
                                         )
     
 
-    test_dataset = SpeechMotionDataset(config.val_lmdb_path,
+    test_dataset = SpeechMotionDataset(config.root_data_dir+config.val_lmdb_path,
                                         n_poses=config.n_poses,
                                         subdivision_stride=10, #10
                                         pose_resampling_fps=config.pose_resampling_fps, #15
@@ -84,7 +84,7 @@ if __name__=="__main__":
                                         mean_pose=mean_pose,
                                         remove_word_timing=('both' == 'text')
                                         )
-    lang_model = build_vocab('words', [train_dataset, test_dataset], config.vocab_cache_path, config.wordembed_path,
+    lang_model = build_vocab('words', [train_dataset, test_dataset], config.root_data_dir+config.vocab_cache_path, config.root_data_dir+config.wordembed_path,
                                 300)
     test_dataset.set_lang_model(lang_model)
     train_dataset.set_lang_model(lang_model)
@@ -106,18 +106,6 @@ if __name__=="__main__":
     model_pos = TemporalModel(N_joints, 2, N_joints,
                             filter_widths=filter_widths, causal=causal, dropout=dropout, channels=channels,
                             dense=dense)
-    # checkpoint = "VideoPose3D/checkpoint"
-    # resume = False
-    # evaluate_arg = 'pretrained_h36m_cpn.bin'
-    # chk_filename = os.path.join(checkpoint, resume if resume else evaluate_arg)
-    # checkpoint = torch.load(chk_filename, map_location=lambda storage, loc: storage)
-    
-    # for name,param in model_pos.named_parameters():
-    #     l_name = name.split('.')
-    #     if l_name[0]+'.'+l_name[1] in config.frozen_layers:
-    #         param.requires_grad = False
-    #         print(f"{l_name} frozen")
-
     model_pos.train()
     model_pos.to(device)
 
