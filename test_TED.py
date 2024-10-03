@@ -416,8 +416,6 @@ def create_video_and_save(save_path, iter_idx, prefix, target_2d=None, output_2d
     axes = [fig.add_subplot(2, 2, 1), fig.add_subplot(2, 2, 2), fig.add_subplot(2, 2, 3, projection='3d'), fig.add_subplot(2, 2, 4, projection="3d")]
  
 
-    # axes[0].view_init(elev=20, azim=-60)
-    # axes[1].view_init(elev=20, azim=-60)
     fig_title = title
 
     if aux_str:
@@ -567,7 +565,7 @@ def create_video_and_save(save_path, iter_idx, prefix, target_2d=None, output_2d
 
 
 
-def main(mode, checkpoint_path, keys=None, lifting=False, lowering=False, model=None, input_context=None):
+def main(mode, checkpoint_path, vp3D_ckpt, keys=None, lifting=False, lowering=False, model=None, input_context=None):
 
     args, generator, lang_model, speaker_model, pose_dim = load_checkpoint_and_model(
         checkpoint_path, device)
@@ -612,7 +610,7 @@ def main(mode, checkpoint_path, keys=None, lifting=False, lowering=False, model=
         videopose = TemporalModel(n_joints, 2, n_joints,
                             filter_widths=[3,3,3,3,3], causal=False, dropout=0.25, channels=1024,
                             dense=False).eval()
-        checkpoint_name = "training_VP3D_logs/200000_subset/vp3D-2024-10-01-10:23/epoch_99-model-24.32-chkpt.pth" #"../VP3D_checkpoints/TED/epoch_12-model-40.96-chkpt.pth" #"../VP3D_checkpoints/TED/epoch_60-model-19.92-chkpt.pth"
+        checkpoint_name = vp3D_ckpt
         state_dict = torch.load(checkpoint_name, map_location=lambda storage, loc: storage)
         videopose.load_state_dict(state_dict["model_pos"], strict=False)
         videopose.eval()
@@ -622,13 +620,13 @@ def main(mode, checkpoint_path, keys=None, lifting=False, lowering=False, model=
     else:
         videopose = None
 
-    val_data_path = args.val_data_path[0]
+    val_data_path = args.data_root_dir[0]+args.test_data_path[0]
+    
     if mode == 'eval':
         if (args.dimension == 2 and not lifting) or lowering:
             eval_net_path = 'output/train_h36m_gesture_autoencoder/2D_retrain_h36m_gesture_autoencoder/new_2D_gesture_autoencoder_checkpoint_best.bin'
         else:
             eval_net_path = 'output/train_h36m_gesture_autoencoder/3D_retrain_h36m_gesture_autoencoder/3D-autoencoder_checkpoint_best.bin'
-            #eval_net_path = 'output/train_h36m_gesture_autoencoder/gesture_autoencoder_checkpoint_best.bin'
 
         print("Loaded encoder: ", eval_net_path)
         embed_space_evaluator = EmbeddingSpaceEvaluator(args, eval_net_path, lang_model, device)
@@ -657,8 +655,6 @@ def main(mode, checkpoint_path, keys=None, lifting=False, lowering=False, model=
         candidate_clips = np.load('candidate_keys.npy')
         keys = candidate_clips[:,0]
         clips_idx = candidate_clips[:,1].astype(np.int32)
-        print(keys)
-        print(clips_idx)
         paths = []
         with lmdb_env.begin(write=False) as txn:
             keys = [key for key, _ in txn.cursor()] if keys is None else keys
@@ -700,7 +696,6 @@ def main(mode, checkpoint_path, keys=None, lifting=False, lowering=False, model=
                 if clip_duration < clip_duration_range[0] or clip_duration > clip_duration_range[1]:
                     continue
 
-                #print(key, clip_idx)
                 # synthesize
                 for selected_vi in range(len(clip_words)):  # make start time of input text zero
                     clip_words[selected_vi][1] -= clip_time[0]  # start time
@@ -773,13 +768,7 @@ def main(mode, checkpoint_path, keys=None, lifting=False, lowering=False, model=
                     sentence = sentence[:-1]
                     out_dir_vec_3d = out_dir_vec_3d[:target_dir_vec_3d.shape[0]]
                     out_dir_vec_2d = out_dir_vec_2d[:target_dir_vec_2d.shape[0]] if out_dir_vec_2d is not None else None
-          
-                    # create_video_and_save(
-                    #     save_path+f"/long", n_saved, f'{postpro}-{model}-{args.dimension}-{args.input_context}-{key}-{i}',
-                    #     target_dir_vec_2d, out_dir_vec_2d, np.array(args.mean_dir_vec_2d).reshape(-1, 2),
-                    #     title=title, audio=clip_audio, aux_str=aux_str, target_3d=target_dir_vec_3d, mean_data_3d = np.array(args.mean_dir_vec_3d).reshape(-1,3), output_3d=out_dir_vec_3d, sample_idx="-"+str(i))
-
-
+      
                     
                     if args.dimension == 3 or lifting:
                         out_dir_vec_3d = out_dir_vec_3d + np.array(args.mean_dir_vec_3d).squeeze()
@@ -820,6 +809,8 @@ if __name__ == '__main__':
     parser.add("--dimension", type=int)
     parser.add("--context", type=str)
     parser.add("--model", type=str, help="multimodal_context or pose_diffusion", default='pose_diffusion')
+    parser.add("--vp3D_ckpt", type=str, default="training_VP3D_logs/200000_subset/vp3D-2024-10-01-10:23/epoch_99-model-24.32-chkpt.pth")
+    parser.add("--checkpoint_path", type=str)
     _args = parser.parse_args()
 
 
@@ -828,51 +819,8 @@ if __name__ == '__main__':
     print(f"Dimension: {_args.dimension}")
     print(f"Model: {_args.model}")
 
-    if _args.dimension ==  2:
-        if _args.model == 'pose_diffusion':
-            
-            if _args.context == 'audio':
-                ckpt_path = 'output/train_diffusion_ted/diffusion_2D-checkpoints/diffgesture-2D_checkpoint_499.bin'
-            elif _args.context == 'none':
-                raise NotImplementedError('Train model and save checkpoint')
-                ckpt_path = ''
-            else:
-                assert False, 'wrong context for pose diffusion'
-        elif _args.model == 'multimodal_context':
-            if _args.context == 'both':
-                ckpt_path = 'output/train_multimodal_context/2D_multimodal-checkpoint/trimodal-2D-both/trimodal-2D-both_checkpoint_best.bin'
-            elif _args.context == 'audio':
-                raise NotImplementedError('Train model and save checkpoint')
-                ckpt_path = ''
-            elif _args.context == 'text':
-                raise NotImplementedError('Train model and save checkpoint')
-                ckpt_path = ''            
-            elif _args.context == 'none':
-                raise NotImplementedError('Train model and save checkpoint')
-                ckpt_path = ''
-
-    else:
-        if _args.model == 'pose_diffusion':
-            if _args.context == 'audio':
-                ckpt_path = 'output/train_diffusion_ted/diffusion_3D-checkpoints/diffgesture-3D_checkpoint_499.bin'
-            elif _args.context == 'none':
-                raise NotImplementedError('Train model and save checkpoint')
-                ckpt_path = ''
-            else:
-                assert False, 'wrong context for pose diffusion'
-        elif _args.model == 'multimodal_context':
-            if _args.context == 'both':
-                ckpt_path = 'output/train_multimodal_context/3D_multimodal-checkpoint/trimodal-3D-both/trimodal-3D-both_checkpoint_best.bin'
-            elif _args.context == 'audio':
-                raise NotImplementedError('Train model and save checkpoint')
-                ckpt_path = ''
-            elif _args.context == 'text':
-                raise NotImplementedError('Train model and save checkpoint')
-                ckpt_path = ''            
-            elif _args.context == 'none':
-                raise NotImplementedError('Train model and save checkpoint')
-                ckpt_path = ''
+    ckpt_path = _args.checkpoint_path
            
     print("Evaluated model: ", ckpt_path)
 
-    main(_args.mode, ckpt_path, lifting=(_args.postprocessing=='lifting'), lowering=(_args.postprocessing=='lowering'), model=_args.model, input_context=_args.context)
+    main(_args.mode, ckpt_path, _args.vp3D_ckpt, lifting=(_args.postprocessing=='lifting'), lowering=(_args.postprocessing=='lowering'), model=_args.model, input_context=_args.context)
