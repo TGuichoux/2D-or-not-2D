@@ -5,6 +5,33 @@ This is the official repository for our paper: _2D or not 2D: How does the dimen
 
 # Access data
 To access the database, please follow the instructions at [Gesture-Generation-from-Trimodal-Context](https://github.com/ai4r/Gesture-Generation-from-Trimodal-Context/tree/master).
+Change the configuration files according to your data directory.
+
+# Getting started
+Clone the current repository.
+Once you have modified the data paths in the configuration files, to train VideoPose3D simply run
+```
+python VP3D_train_TED.py
+```
+
+To train Trimodal 3D run:
+```
+python trimodal_train_TED.py --config=config/trimodal_3D.yml --input_context=both --name=trimodal_3D
+```
+For the 2D version run:
+```
+python trimodal_train_TED.py --config=config/trimodal_2D.yml --input_context=both --name=trimodal_2D
+```
+
+Similarly, for DiffGesture run:
+```
+python DiffGesture_train_TED.py --config=config/diffgesture_3D.yml --name=diffgesture_3D
+```
+or
+```
+python DiffGesture_train_TED.py --config=config/diffgesture_2D.yml --name=diffgesture_3D
+```
+
 
 # Aknowledgement
 This code is based on the code of [Gesture-Generation-from-Trimodal-Context](https://github.com/ai4r/Gesture-Generation-from-Trimodal-Context/tree/master), [DiffGesture](https://github.com/Advocate99/DiffGesture/tree/main) and [VideoPose3D](https://github.com/facebookresearch/VideoPose3D).
